@@ -262,5 +262,11 @@ namespace SonarAnalyzer.Helpers
         {
             return method.MethodKind == MethodKind.Destructor;
         }
+
+        internal static bool IsKnownType(this SyntaxNode syntaxNode, KnownType knownType, SemanticModel semanticModel)
+        {
+            var symbolType = semanticModel.GetSymbolInfo(syntaxNode).Symbol.GetSymbolType();
+            return symbolType.Is(knownType);
+        }
     }
 }
